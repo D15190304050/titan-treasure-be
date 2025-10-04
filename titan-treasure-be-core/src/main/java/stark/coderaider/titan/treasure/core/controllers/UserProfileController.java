@@ -1,4 +1,4 @@
-package stark.coderaider.titan.treasure.core.domain.entities.mysql.controllers;
+package stark.coderaider.titan.treasure.core.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/connection")
-public class ConnectionTestController
+@RequestMapping("/profile")
+public class UserProfileController
 {
+
 }

@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: dante-pod
+    labels:
+        app: dante
+spec:
+    containers:
+        - name: dante
+          image: crpi-f8j7aiecm2fqi74a.cn-hangzhou.personal.cr.aliyuncs.com/commandercs/dante:0.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+              - containerPort: 46258
+                name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: dante-service
+spec:
+    type: NodePort
+    selector:
+        app: dante
+    ports:
+        - protocol: TCP
+          port: 46258
+          targetPort: 46258
+          nodePort: 30009

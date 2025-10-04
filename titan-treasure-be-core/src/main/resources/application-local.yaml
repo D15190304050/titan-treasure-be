@@ -1,6 +1,7 @@
 spring:
     datasource:
-        url: jdbc:mysql://localhost:3306/titan_treasure?useUnicode=true&characterEncoding=utf8
+#        url: jdbc:mysql://localhost:3306/titan_treasure?useUnicode=true&characterEncoding=utf8
+        url: jdbc:mysql://172.27.64.1:3306/titan_treasure?useUnicode=true&characterEncoding=utf8
         hikari:
             driver-class-name: com.mysql.cj.jdbc.Driver
             username: DinoStark
@@ -8,7 +9,6 @@ spring:
     data:
         redis:
             host: localhost
-            #            port: 6379
             port: 10079
 
 dubbo:
