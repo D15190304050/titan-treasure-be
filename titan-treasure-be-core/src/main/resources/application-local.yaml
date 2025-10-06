@@ -13,5 +13,5 @@ spring:
 
 dubbo:
     service:
-        iam:
+        titan-gate-be:
             url: tri://localhost:20880
