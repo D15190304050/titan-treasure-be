@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="stark.coderaider.titan.treasure.core.dao.UserProfileMapper">
+    <resultMap id="BaseResultMap" type="stark.coderaider.titan.treasure.core.domain.entities.mysql.UserProfile">
+        <id column="id" property="id" />
+        <result column="creator_id" property="creatorId" />
+        <result column="creation_time" property="creationTime" />
+        <result column="modifier_id" property="modifierId" />
+        <result column="modification_time" property="modificationTime" />
+        <result column="user_id" property="userId" />
+        <result column="nickname" property="nickname" />
+        <result column="avatar_url" property="avatarUrl" />
+        <result column="bio" property="bio" />
+        <result column="birthday" property="birthday" />
+        <result column="gender" property="gender" />
+    </resultMap>
+
+    <select id="getUserProfileById" resultMap="BaseResultMap">
+        SELECT `id`,
+               `creator_id`,
+               `creation_time`,
+               `modifier_id`,
+               `modification_time`,
+               `user_id`,
+               `nickname`,
+               `avatar_url`,
+               `bio`,
+               `birthday`,
+               `gender`
+        FROM `user_profile`
+        WHERE `id` = #{id}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO `user_profile`
+        (`creator_id`,
+         `modifier_id`,
+         `user_id`,
+         `nickname`,
+         `avatar_url`,
+         `bio`,
+         `birthday`,
+         `gender`)
+        VALUES (#{creatorId},
+                #{modifierId},
+                #{userId},
+                #{nickname},
+                #{avatarUrl},
+                #{bio},
+                #{birthday},
+                #{gender})
+    </insert>
+</mapper>
