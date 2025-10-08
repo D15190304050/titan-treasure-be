@@ -15,7 +15,7 @@
         <result column="gender" property="gender" />
     </resultMap>
 
-    <select id="getUserProfileById" resultMap="BaseResultMap">
+    <select id="getUserProfileByUserId" resultMap="BaseResultMap">
         SELECT `id`,
                `creator_id`,
                `creation_time`,
@@ -28,7 +28,7 @@
                `birthday`,
                `gender`
         FROM `user_profile`
-        WHERE `id` = #{id}
+        WHERE `user_id` = #{userId}
     </select>
 
     <insert id="insert">

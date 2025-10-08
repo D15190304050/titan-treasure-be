@@ -11,5 +11,15 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>stark.dataworks</groupId>
+            <artifactId>dubbo-air</artifactId>
+            <version>${dataworks.version}</version>
+        </dependency>
     </dependencies>
 </project>

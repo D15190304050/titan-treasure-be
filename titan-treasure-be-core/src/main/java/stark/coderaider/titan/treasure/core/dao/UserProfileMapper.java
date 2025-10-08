@@ -6,6 +6,6 @@ import stark.coderaider.titan.treasure.core.domain.entities.mysql.UserProfile;
 @Mapper
 public interface UserProfileMapper
 {
-    UserProfile getUserProfileById(long id);
+    UserProfile getUserProfileByUserId(long userId);
     int insert(UserProfile userProfile);
 }

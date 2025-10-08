@@ -1,6 +1,7 @@
 package stark.coderaider.titan.treasure.core.domain.dtos.requests;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -26,6 +27,7 @@ public class UserRegisterRequest
 
     @NotBlank(message = "Email cannot be blank.")
     @Size(max = 64, message = "Email cannot be longer than 64 characters.")
+    @Email(message = "Email is not valid.")
     private String email;
 
     @NotBlank(message = "Password cannot be blank.")

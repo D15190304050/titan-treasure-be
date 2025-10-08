@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import stark.coderaider.titan.gate.api.IAuthenticationService;
+import stark.coderaider.titan.gate.api.IAuthenticationRpcService;
 import stark.coderaider.titan.gate.api.dtos.requests.RegisterAuthenticationRequest;
 import stark.coderaider.titan.treasure.core.dao.UserProfileMapper;
 import stark.coderaider.titan.treasure.core.domain.dtos.requests.UserRegisterRequest;
@@ -19,7 +19,7 @@ public class UserProfileService
     private UserProfileMapper userProfileMapper;
 
     @DubboReference(url = "${dubbo.service.titan-gate-be.url}", check = false)
-    private IAuthenticationService authenticationService;
+    private IAuthenticationRpcService authenticationRpcService;
 
     public ServiceResponse<Boolean> userRegister(UserRegisterRequest request)
     {
@@ -56,6 +56,6 @@ public class UserProfileService
         registerAuthenticationRequest.setEmail(request.getEmail());
         registerAuthenticationRequest.setPhoneNumberCountryCode("+86");
         registerAuthenticationRequest.setPhoneNumber(request.getPhoneNumber());
-        return authenticationService.registerAuthentication(registerAuthenticationRequest);
+        return authenticationRpcService.registerAuthentication(registerAuthenticationRequest);
     }
 }
