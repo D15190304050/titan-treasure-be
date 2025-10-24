@@ -29,6 +29,7 @@ public class SchemaSnapshot extends SchemaSnapshotBase {
             builder.column().name("modification_time").type("DATETIME").nullable(true).unique(false)
                     .defaultValue("NOW()").onUpdate("NOW()");
             builder.primaryKey().columnName("id");
+            builder.key().name("idx_user_id").columns(List.of("user_id"));
             builder.engine("InnoDB");
             builder.comment("Location information of users.");
         });
@@ -50,6 +51,7 @@ public class SchemaSnapshot extends SchemaSnapshotBase {
             builder.column().name("modification_time").type("DATETIME").nullable(true).unique(false)
                     .defaultValue("NOW()").onUpdate("NOW()");
             builder.primaryKey().columnName("id");
+            builder.key().name("idx_user_id").columns(List.of("user_id"));
             builder.engine("InnoDB");
             builder.comment("Profile of users.");
         });
@@ -70,6 +72,7 @@ public class SchemaSnapshot extends SchemaSnapshotBase {
             builder.column().name("modification_time").type("DATETIME").nullable(true).unique(false)
                     .defaultValue("NOW()").onUpdate("NOW()");
             builder.primaryKey().columnName("id");
+            builder.key().name("idx_user_id").columns(List.of("user_id"));
             builder.engine("InnoDB");
             builder.comment("System preferences of users.");
         });

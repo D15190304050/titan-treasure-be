@@ -18,6 +18,9 @@ public class UserProfileService
     @Autowired
     private UserProfileMapper userProfileMapper;
 
+    @Autowired
+    private UserProfileCommonService userProfileCommonService;
+
     @DubboReference(url = "${dubbo.service.titan-gate-be.url}", check = false)
     private IAuthenticationRpcService authenticationRpcService;
 
