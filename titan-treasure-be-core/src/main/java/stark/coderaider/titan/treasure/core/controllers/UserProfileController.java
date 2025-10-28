@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import stark.coderaider.titan.treasure.api.dtos.responses.UserProfileInfo;
 import stark.coderaider.titan.treasure.core.domain.dtos.requests.UserRegisterRequest;
 import stark.coderaider.titan.treasure.core.services.UserProfileService;
 import stark.dataworks.boot.web.ServiceResponse;
@@ -23,5 +24,11 @@ public class UserProfileController
     public ServiceResponse<Boolean> userRegister(@RequestBody @Valid UserRegisterRequest request)
     {
         return userProfileService.userRegister(request);
+    }
+
+    @PostMapping("/info")
+    public ServiceResponse<UserProfileInfo> getUserProfileInfo()
+    {
+        return userProfileService.getUserProfileInfo();
     }
 }

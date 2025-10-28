@@ -91,6 +91,12 @@
         </dependency>
 
         <dependency>
+            <groupId>stark.coderaider</groupId>
+            <artifactId>titan-gate-be-login-state</artifactId>
+            <version>${titan-gate-be.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-spring-boot-starter</artifactId>
             <version>${dubbo.version}</version>

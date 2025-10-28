@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import stark.coderaider.titan.gate.api.IAuthenticationRpcService;
 import stark.coderaider.titan.gate.api.dtos.requests.RegisterAuthenticationRequest;
+import stark.coderaider.titan.gate.loginstate.UserContextService;
+import stark.coderaider.titan.treasure.api.dtos.responses.UserProfileInfo;
 import stark.coderaider.titan.treasure.core.dao.UserProfileMapper;
 import stark.coderaider.titan.treasure.core.domain.dtos.requests.UserRegisterRequest;
 import stark.coderaider.titan.treasure.core.domain.entities.mysql.UserProfile;
@@ -20,6 +22,9 @@ public class UserProfileService
 
     @Autowired
     private UserProfileCommonService userProfileCommonService;
+
+    @Autowired
+    private UserContextService userContextService;
 
     @DubboReference(url = "${dubbo.service.titan-gate-be.url}", check = false)
     private IAuthenticationRpcService authenticationRpcService;
@@ -60,5 +65,11 @@ public class UserProfileService
         registerAuthenticationRequest.setPhoneNumberCountryCode("+86");
         registerAuthenticationRequest.setPhoneNumber(request.getPhoneNumber());
         return authenticationRpcService.registerAuthentication(registerAuthenticationRequest);
+    }
+
+    public ServiceResponse<UserProfileInfo> getUserProfileInfo()
+    {
+        long currentUserId = userContextService.getCurrentUserId();
+        return userProfileCommonService.getUserProfileInfo(currentUserId);
     }
 }
