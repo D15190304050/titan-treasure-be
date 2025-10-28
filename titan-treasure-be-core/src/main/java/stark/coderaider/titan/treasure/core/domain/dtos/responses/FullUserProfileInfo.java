@@ -1,17 +1,16 @@
-package stark.coderaider.titan.treasure.api.dtos.responses;
+package stark.coderaider.titan.treasure.core.domain.dtos.responses;
 
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class UserProfileInfo implements Serializable
+public class FullUserProfileInfo
 {
     /**
      * IAM 用户ID（外键）
      */
-    private long userId;
+    private long id;
 
     /**
      * 昵称，展示用，不要求唯一
@@ -38,5 +37,14 @@ public class UserProfileInfo implements Serializable
      */
     private int gender;
 
+    /**
+     * Creation time of the account.
+     */
     private Date creationTime;
+
+    // From IAM.
+    private String username;
+    private String email;
+    private String phoneNumberCountryCode;
+    private String phoneNumber;
 }

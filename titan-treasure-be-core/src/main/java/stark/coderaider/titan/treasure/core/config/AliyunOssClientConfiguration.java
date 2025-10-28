@@ -13,7 +13,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AliyunOssClientConfiguration
 {
-    public static final String ENDPOINT = "https://oss-cn-hangzhou.aliyuncs.com";
+    public static final String DOMAIN_NAME = "oss-cn-hangzhou.aliyuncs.com";
+    public static final String ENDPOINT = "https://" + DOMAIN_NAME;
     public static final String REGION = "cn-hangzhou";
 
     @Bean(destroyMethod = "shutdown")

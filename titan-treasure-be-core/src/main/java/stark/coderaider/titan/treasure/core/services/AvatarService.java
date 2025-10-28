@@ -85,6 +85,6 @@ public class AvatarService
     {
         // https://examplebucket.oss-cn-hangzhou.aliyuncs.com/example.txt
 //        return "https://" + bucketNameAvatars + ".oss-cn-hangzhou.aliyuncs.com/" + fileName;
-        return String.format(PATTERN_AVATAR_URL, bucketNameAvatars, AliyunOssClientConfiguration.ENDPOINT, fileName);
+        return String.format(PATTERN_AVATAR_URL, bucketNameAvatars, AliyunOssClientConfiguration.DOMAIN_NAME, fileName);
     }
 }

@@ -9,6 +9,7 @@ import stark.coderaider.fluentschema.commons.annotations.Table;
 
 import java.util.Date;
 
+// TODO: Add some columns of IAM.
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Table(namingConvention = NamingConvention.LOWER_CASE_WITH_UNDERSCORE, comment = "Profile of users.")
@@ -31,4 +32,16 @@ public class UserProfile extends EntityBase
 
     @Column(comment = "Gender of the user: 0 - Unknown; 1 - Male; 2 - Female.")
     private int gender;            // 性别：0=未知，1=男，2=女
+
+//    @Column(type = "VARCHAR(255)", comment = "Username of the user.")
+//    private String username;
+//
+//    @Column(type = "VARCHAR(64)", nullable = false, comment = "Email address of the user.")
+//    private String email;
+//
+//    @Column(type = "VARCHAR(5)", nullable = false, comment = "Phone number country code.")
+//    private String phoneNumberCountryCode;
+//
+//    @Column(type = "VARCHAR(16)", nullable = false, comment = "Phone number.")
+//    private String phoneNumber;
 }

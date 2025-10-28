@@ -2,14 +2,17 @@ package stark.coderaider.titan.treasure.core.services;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import stark.coderaider.titan.gate.api.IAuthenticationRpcService;
 import stark.coderaider.titan.gate.api.dtos.requests.RegisterAuthenticationRequest;
+import stark.coderaider.titan.gate.api.dtos.responses.UserAuthenticationInfo;
 import stark.coderaider.titan.gate.loginstate.UserContextService;
 import stark.coderaider.titan.treasure.api.dtos.responses.UserProfileInfo;
 import stark.coderaider.titan.treasure.core.dao.UserProfileMapper;
 import stark.coderaider.titan.treasure.core.domain.dtos.requests.UserRegisterRequest;
+import stark.coderaider.titan.treasure.core.domain.dtos.responses.FullUserProfileInfo;
 import stark.coderaider.titan.treasure.core.domain.entities.mysql.UserProfile;
 import stark.dataworks.boot.web.ServiceResponse;
 
@@ -22,9 +25,6 @@ public class UserProfileService
 
     @Autowired
     private UserProfileCommonService userProfileCommonService;
-
-    @Autowired
-    private UserContextService userContextService;
 
     @DubboReference(url = "${dubbo.service.titan-gate-be.url}", check = false)
     private IAuthenticationRpcService authenticationRpcService;
@@ -67,9 +67,28 @@ public class UserProfileService
         return authenticationRpcService.registerAuthentication(registerAuthenticationRequest);
     }
 
-    public ServiceResponse<UserProfileInfo> getUserProfileInfo()
+    public ServiceResponse<FullUserProfileInfo> getUserProfileInfo()
     {
-        long currentUserId = userContextService.getCurrentUserId();
-        return userProfileCommonService.getUserProfileInfo(currentUserId);
+        // Get user profile info from database.
+        long currentUserId = UserContextService.getCurrentUserId();
+        ServiceResponse<UserProfileInfo> userProfileInfoResponse = userProfileCommonService.getUserProfileInfo(currentUserId);
+        if (!userProfileInfoResponse.isSuccess())
+            return ServiceResponse.buildErrorResponse(userProfileInfoResponse.getCode(), userProfileInfoResponse.getMessage());
+
+        FullUserProfileInfo fullUserProfileInfo = new FullUserProfileInfo();
+        BeanUtils.copyProperties(userProfileInfoResponse.getData(), fullUserProfileInfo);
+
+        // Get user authentication info from authentication service.
+        ServiceResponse<UserAuthenticationInfo> userAuthenticationInfoServiceResponse = authenticationRpcService.getUserAuthenticationInfo(currentUserId);
+        if (!userAuthenticationInfoServiceResponse.isSuccess())
+            return ServiceResponse.buildErrorResponse(userAuthenticationInfoServiceResponse.getCode(), userAuthenticationInfoServiceResponse.getMessage());
+
+        UserAuthenticationInfo authenticationInfo = userAuthenticationInfoServiceResponse.getData();
+        fullUserProfileInfo.setUsername(authenticationInfo.getUsername());
+        fullUserProfileInfo.setEmail(authenticationInfo.getEmail());
+        fullUserProfileInfo.setPhoneNumberCountryCode(authenticationInfo.getPhoneNumberCountryCode());
+        fullUserProfileInfo.setPhoneNumber(authenticationInfo.getPhoneNumber());
+
+        return ServiceResponse.buildSuccessResponse(fullUserProfileInfo);
     }
 }
